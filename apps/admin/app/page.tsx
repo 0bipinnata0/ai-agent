@@ -1,3 +1,4 @@
+import { getAdminServerEnv } from '../src/env.server'
 import { TailwindDemo } from '@repo/ui/tailwind-demo'
 import { Button } from '@repo/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@repo/ui/card'
@@ -6,9 +7,11 @@ import { Label } from '@repo/ui/label'
 import { Separator } from '@repo/ui/separator'
 
 export default function Home() {
+  const env = getAdminServerEnv()
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 p-6">
-      <TailwindDemo appName="web" />
+      <TailwindDemo appName="admin" />
 
       <Card className="w-full max-w-md">
         <CardHeader>
@@ -34,6 +37,27 @@ export default function Home() {
           </Button>
           <Button className="flex-1">提交</Button>
         </CardFooter>
+      </Card>
+
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Environment overview</CardTitle>
+          <CardDescription>
+            The admin app reads private server variables and public browser variables separately.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="rounded-xl border border-border-default bg-surface-canvas p-4">
+              <p className="text-xs text-content-tertiary">APP_ENV</p>
+              <p className="text-sm font-medium text-content-primary">{env.APP_ENV}</p>
+            </div>
+            <div className="rounded-xl border border-border-default bg-surface-canvas p-4">
+              <p className="text-xs text-content-tertiary">API_BASE_URL</p>
+              <p className="text-sm font-medium text-content-primary">{env.API_BASE_URL}</p>
+            </div>
+          </div>
+        </CardContent>
       </Card>
     </div>
   )
